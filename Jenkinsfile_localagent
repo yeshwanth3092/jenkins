@@ -1,31 +1,34 @@
 pipeline {
-    agent { 
-        node {
-            label 'local-agent'
-            }
-      }
+    agent any
+
+    triggers {
+        pollSCM('*/5 * * * *')  // Poll SCM every 5 minutes
+    }
+
     stages {
         stage('Build') {
             steps {
-                echo "Building.."
+                echo "Building..."
                 sh '''
-                echo "Building from Jenkins file"
+                    echo "Building from Jenkins pipeline"
                 '''
             }
         }
+
         stage('Test') {
             steps {
-                echo "Testing.."
+                echo "Testing..."
                 sh '''
-                echo "Testing the build triggered from Jenkins file."
+                    echo "Testing the build triggered from Jenkins pipeline."
                 '''
             }
         }
+
         stage('Deliver') {
             steps {
-                echo 'Deliver....'
+                echo "Delivering..."
                 sh '''
-                echo "doing delivery stuff.."
+                    echo "Performing delivery steps."
                 '''
             }
         }
